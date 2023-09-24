@@ -1,6 +1,10 @@
 // const express = require("express");
 
 import express from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const app = express();
 
 app.get('/users', (req, res) => {
@@ -9,6 +13,8 @@ app.get('/users', (req, res) => {
     });
 });
 
-app.listen(8000,  () => {
-    console.log('Node server is running on port 8000');
+const port = process.env.PORT;
+
+app.listen(port,  () => {
+    console.log(`Node server is running on port ${port}`);
 });
