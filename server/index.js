@@ -4,7 +4,7 @@ const app = express();
 
 app.get('/users', function (req, res) {
     res.json({
-        data: 'Raja Zen David',
+        data: 'Raja Kumar Kamal',
     });
 });
 
