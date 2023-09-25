@@ -3,6 +3,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -13,11 +14,9 @@ mongoose
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log("DB Connection Error: ", err));
 
-app.get("/users", (req, res) => {
-  res.json({
-    data: "Raja Kumar Kamal",
-  });
-});
+
+app.use("/api", authRoutes);
+
 
 const port = process.env.PORT;
 
