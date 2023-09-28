@@ -60,8 +60,6 @@ export const register = async (req, res) => {
   }
 };
 
-
-
 export const login = async (req, res) => {
   try {
     // 1. destructure name, email, password from req.body
@@ -99,4 +97,8 @@ export const login = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const secret = async (req, res) => {
+  res.json({ currentUser: req.user });
 };
