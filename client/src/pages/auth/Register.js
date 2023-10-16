@@ -32,7 +32,7 @@ export default function Register() {
       } else {
         localStorage.setItem("auth", JSON.stringify(data));
         setAuth({ ...auth, token: data.token, user: data.user });
-        navigate("/");
+        navigate("/dashboard");
         toast.success("Registration successful");
       }
     } catch (err) {
