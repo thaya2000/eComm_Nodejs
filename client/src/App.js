@@ -6,6 +6,15 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/user/Dashboard";
 import PrivateRoutes from "./components/routes/PrivateRoutes";
+import Secret from "./pages/Secret";
+
+const PageNotFound = () => {
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100 large-text">
+      404 | Page Not Found
+    </div>
+  );
+};
 
 export default function App() {
   return (
@@ -18,7 +27,9 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoutes />}>
           <Route path="" element={<Dashboard />} />
+          <Route path="secret" element={<Secret />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} replace />
       </Routes>
     </BrowserRouter>
   );
