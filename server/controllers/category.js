@@ -7,9 +7,9 @@ export const create = async (req, res) => {
     if (!name.trim()) {
       return res.json({ error: "Name is required" });
     }
-    const existingCategory = await Category.findOne({ name });
+    const existingCategory = await Category.findOne({ slug: slugify(name) });
     if (existingCategory) {
-      return res.json({ error: "Already exists" });
+      return res.json({ error: "Category already exists" });
     }
 
     const category = await new Category({ name, slug: slugify(name) }).save();
