@@ -1,18 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LoadingGif from "../../images/loading.gif";
 
-export default function Loading() {
+export default function Loading({ path = "login" }) {
   // state
   const [count, setCount] = useState(3);
   //hooks
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((currentCount) => --currentCount);
     }, 1000);
-    count === 0 && navigate("/login");
+    count === 0 &&
+      navigate(`/${path}`, {
+        state: location.pathname,
+      });
 
     // cleanup
     return () => clearInterval(interval);
