@@ -1,5 +1,5 @@
 import { useAuth } from "../../context/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Jumbotron from "../../components/cards/Jumbotron";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -10,6 +10,20 @@ export default function AdminCategory() {
   const [auth, setAuth] = useAuth();
   // state
   const [name, setName] = useState("");
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      const { data } = await axios.get("/categories");
+      setCategories(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +33,7 @@ export default function AdminCategory() {
         toast.error(data.error);
       } else {
         setName("");
+        loadCategories();
         toast.success(`"${data.name}" is created`);
       }
       console.log(name);
@@ -53,6 +68,16 @@ export default function AdminCategory() {
                 />
                 <button className="btn btn-primary mt-3">Submit</button>
               </form>
+            </div>
+
+            <hr />
+
+            <div className="col">
+              {categories?.map((c) => (
+                <button key={c._id} className="btn btn-outline-primary m-3">
+                  {c.name}
+                </button>
+              ))}
             </div>
           </div>
         </div>
