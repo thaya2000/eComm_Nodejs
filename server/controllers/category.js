@@ -23,7 +23,17 @@ export const create = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const { name } = req.body;
+
     const { categoryId } = req.params;
+    if (!name.trim()) {
+      return res.json({ error: "Name is required" });
+    }
+
+    const existingCategory = await Category.findOne({ slug: slugify(name) });
+    if (existingCategory) {
+      return res.json({ error: "Category already exists" });
+    }
+
     const category = await Category.findByIdAndUpdate(
       categoryId,
       {
@@ -32,6 +42,7 @@ export const update = async (req, res) => {
       },
       { new: true }
     );
+
     res.json(category);
   } catch (err) {
     console.log(err);
